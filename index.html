@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>تجربة</title>
+    
+
+  </head>
+    
+  <body>
+  <!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>حالة الزحمة في بوابات الجامعة</title>
+    <style>
+        body {
+            font-family: "Tahoma", sans-serif;
+            background: #f5f7fa;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .gate {
+            background: white;
+            padding: 20px;
+            margin: 20px auto;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .gate img {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .status-bar {
+            height: 35px;
+            border-radius: 10px;
+            background: #ddd;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .buttons button {
+            padding: 10px 15px;
+            margin: 5px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            color: white;
+        }
+
+        .red { background: #e74c3c; }
+        .yellow { background: #f1c40f; color: black; }
+        .green { background: #2ecc71; }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #777;
+            font-size: 14px;
+        }
+    </style>
+
+    <script>
+        function updateStatus(gateId, status, color) {
+            const bar = document.getElementById(gateId);
+            bar.innerText = status;
+            bar.style.background = color;
+            bar.style.color = "white";
+        }
+    </script>
+</head>
+
+<body>
+
+<h1>حالة الزحمة في بوابات الجامعة</h1>
+
+<!-- تكرار البوابات الخمسة -->
+<div class="gate">
+    <img src="your-image.jpg" alt="صورة البوابة">
+    <h2>البوابة 1</h2>
+    <div id="gate1" class="status-bar">لم يتم التحديث بعد</div>
+    <div class="buttons">
+        <button class="red" onclick="updateStatus('gate1','مزدحم','#e74c3c')">مزدحم</button>
+        <button class="yellow" onclick="updateStatus('gate1','متوسط','#f1c40f')">متوسط</button>
+        <button class="green" onclick="updateStatus('gate1','فاضي','#2ecc71')">فاضي</button>
+    </div>
+</div>
+
+<div class="gate">
+    <img src="your-image.jpg" alt="صورة البوابة">
+    <h2>البوابة 2</h2>
+    <div id="gate2" class="status-bar">لم يتم التحديث بعد</div>
+    <div class="buttons">
+        <button class="red" onclick="updateStatus('gate2','مزدحم','#e74c3c')">مزدحم</button>
+        <button class="yellow" onclick="updateStatus('gate2','متوسط','#f1c40f')">متوسط</button>
+        <button class="green" onclick="updateStatus('gate2','فاضي','#2ecc71')">فاضي</button>
+    </div>
+</div>
+
+<div class="gate">
+    <img src="your-image.jpg" alt="صورة البوابة">
+    <h2>البوابة 3</h2>
+    <div id="gate3" class="status-bar">لم يتم التحديث بعد</div>
+    <div class="buttons">
+        <button class="red" onclick="updateStatus('gate3','مزدحم','#e74c3c')">مزدحم</button>
+        <button class="yellow" onclick="updateStatus('gate3','متوسط','#f1c40f')">متوسط</button>
+        <button class="green" onclick="updateStatus('gate3','فاضي','#2ecc71')">فاضي</button>
+    </div>
+</div>
+
+<div class="gate">
+    <img src="your-image.jpg" alt="صورة البوابة">
+    <h2>البوابة 4</h2>
+    <div id="gate4" class="status-bar">لم يتم التحديث بعد</div>
+    <div class="buttons">
+        <button class="red" onclick="updateStatus('gate4','مزدحم','#e74c3c')">مزدحم</button>
+        <button class="yellow" onclick="updateStatus('gate4','متوسط','#f1c40f')">متوسط</button>
+        <button class="green" onclick="updateStatus('gate4','فاضي','#2ecc71')">فاضي</button>
+    </div>
+</div>
+
+<div class="gate">
+    <img src="your-image.jpg" alt="صورة البوابة">
+    <h2>البوابة 5</h2>
+    <div id="gate5" class="status-bar">لم يتم التحديث بعد</div>
+    <div class="buttons">
+        <button class="red" onclick="updateStatus('gate5','مزدحم','#e74c3c')">مزدحم</button>
+        <button class="yellow" onclick="updateStatus('gate5','متوسط','#f1c40f')">متوسط</button>
+        <button class="green" onclick="updateStatus('gate5','فاضي','#2ecc71')">فاضي</button>
+    </div>
+</div>
+
+<div class="footer">
+    مشروع طلاب جامعة — عرض حالة الزحمة في البوابات
+</div>
+
+</body>
+</html>
+    
+  </body>
+  
+</html>
