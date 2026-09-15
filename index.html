@@ -1,15 +1,4 @@
 <!DOCTYPE html>
-<html lang="en">
-
-  <head>
-    <meta charset="UTF-8">
-    <title>تجربة</title>
-    
-
-  </head>
-    
-  <body>
-  <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
@@ -54,6 +43,7 @@
             justify-content: center;
             font-weight: bold;
             color: #333;
+            transition: background 0.3s ease;
         }
 
         .buttons button {
@@ -76,21 +66,20 @@
             color: #777;
             font-size: 14px;
         }
-    </style>
 
-    <script>
-        function updateStatus(gateId, status, color) {
-            const bar = document.getElementById(gateId);
-            bar.innerText = status;
-            bar.style.background = color;
-            bar.style.color = "white";
+        .connection-status {
+            text-align: center;
+            font-size: 13px;
+            color: #999;
+            margin-bottom: 20px;
         }
-    </script>
+    </style>
 </head>
 
 <body>
 
 <h1>حالة الزحمة في بوابات الجامعة</h1>
+<div class="connection-status" id="connectionStatus">جارٍ الاتصال بالخادم...</div>
 
 <!-- تكرار البوابات الخمسة -->
 <div class="gate">
@@ -151,15 +140,18 @@
 <div class="footer">
     مشروع طلاب جامعة — عرض حالة الزحمة في البوابات
 </div>
-<script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-analytics.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
 
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+<script type="module">
+  // استيراد أدوات فايربيس المطلوبة
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+  import {
+    getFirestore,
+    doc,
+    setDoc,
+    onSnapshot
+  } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+
+  // إعدادات مشروعك في فايربيس
   const firebaseConfig = {
     apiKey: "AIzaSyAhiGnILL6LGh08KBm-XorbA8zrkBxAlw4",
     authDomain: "parking-traffic-ub.firebaseapp.com",
@@ -170,13 +162,48 @@
     measurementId: "G-E553TDP785"
   };
 
-  // Initialize Firebase
+  // تشغيل فايربيس و Firestore
   const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
+  const db = getFirestore(app);
+
+  const gateIds = ["gate1", "gate2", "gate3", "gate4", "gate5"];
+
+  // دالة تحديث الحالة: تكتب في Firestore بدل ما تعدل الصفحة مباشرة
+  window.updateStatus = async function (gateId, status, color) {
+    try {
+      await setDoc(doc(db, "gates", gateId), {
+        status: status,
+        color: color,
+        updatedAt: Date.now()
+      });
+    } catch (err) {
+      console.error("خطأ أثناء حفظ الحالة:", err);
+      alert("صار خطأ أثناء تحديث الحالة، تأكد من اتصالك بالإنترنت.");
+    }
+  };
+
+  // الاستماع اللحظي لكل بوابة: أي تغيير في القاعدة ينعكس فورًا عند الجميع
+  gateIds.forEach((gateId) => {
+    onSnapshot(doc(db, "gates", gateId), (docSnap) => {
+      const bar = document.getElementById(gateId);
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        bar.innerText = data.status;
+        bar.style.background = data.color;
+        bar.style.color = "white";
+      } else {
+        bar.innerText = "لم يتم التحديث بعد";
+        bar.style.background = "#ddd";
+        bar.style.color = "#333";
+      }
+    }, (error) => {
+      console.error("خطأ في الاستماع للتحديثات:", error);
+      document.getElementById("connectionStatus").innerText = "تعذر الاتصال بالخادم";
+    });
+  });
+
+  document.getElementById("connectionStatus").innerText = "متصل ✓ التحديثات لحظية للجميع";
 </script>
+
 </body>
-</html>
-    
-  </body>
-  
 </html>
